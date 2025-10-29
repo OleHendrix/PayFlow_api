@@ -14,6 +14,7 @@ class AuthController extends Controller
 {
   public function login(Request $request)
   {
+    Log::info(json_encode($request->all()));
     $validation_rules = [
       'email' => 'required|email',
       'password' => 'required|string|min:8',
@@ -26,7 +27,10 @@ class AuthController extends Controller
       ]);
     }
 
-    $request->session()->regenerate();
-    return response()->json(Auth::user());
+    // $request->session()->regenerate();
+    // return response()->json(Auth::user());
+    $user = Auth::user();
+
+    return $user->createToken('auth_token')->plainTextToken;
   }
 }
