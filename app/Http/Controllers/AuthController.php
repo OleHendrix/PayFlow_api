@@ -26,11 +26,11 @@ class AuthController extends Controller
       ]);
     }
 
-    // $request->session()->regenerate();
-    // return response()->json(Auth::user());
-    $user = Auth::user();
+    $request->session()->regenerate();
+    return response()->json(Auth::user());
+    // $user = Auth::user();
 
-    return $user->createToken('auth_token')->plainTextToken;
+    // return $user->createToken('auth_token')->plainTextToken;
   }
 
   public function logout(Request $request)
